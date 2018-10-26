@@ -1,8 +1,5 @@
-import re
-
-
 def hey(phrase):
-    condensed_phrase = phrase.strip(" \t\n\r")
+    condensed_phrase = phrase.strip()
 
     is_question = condensed_phrase.endswith("?")
     is_uppercase = condensed_phrase.isupper()
