@@ -1,30 +1,32 @@
-SHOUTING_A_QUESTION = "Calm down, I know what I'm doing!"
-SHOUTING = "Whoa, chill out!"
-QUESTION = "Sure."
-SILENCE = "Fine. Be that way!"
-DEFAULT = "Whatever."
+RESPONSES = {
+    "shouting_a_question": "Calm down, I know what I'm doing!",
+    "shouting": "Whoa, chill out!",
+    "question": "Sure.",
+    "silence": "Fine. Be that way!",
+    "default": "Whatever."
+}
 
 def hey(phrase):
     normalized_phrase = phrase.strip(" \t\n\r")
 
     shouting = is_shouting(normalized_phrase)
-    question = is_question(normalized_phrase)
-    shouting_a_question = shouting and question
+    asking_question = is_question(normalized_phrase)
+    shouting_question = shouting and asking_question
     silence = not normalized_phrase
 
-    if shouting_a_question:
-        return SHOUTING_A_QUESTION
+    if shouting_question:
+        return RESPONSES["shouting_a_question"]
 
     if shouting:
-        return SHOUTING
+        return RESPONSES["shouting"]
 
-    if question:
-        return QUESTION
+    if asking_question:
+        return RESPONSES["question"]
 
     if silence:
-        return SILENCE
+        return RESPONSES["silence"]
 
-    return DEFAULT
+    return RESPONSES["default"]
 
 
 def is_shouting(phrase):
