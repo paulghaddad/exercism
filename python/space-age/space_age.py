@@ -15,49 +15,31 @@ class SpaceAge(object):
         self.seconds = seconds
 
     def on_mercury(self):
-        age = self.seconds / (
-            self.RELATIVE_PLANET_YEARS_MAP["mercury"] * self.EARTH_YEAR_IN_SECONDS
-        )
-        return round(age, 2)
+        return self._relative_earth_years_for_planet("mercury")
 
     def on_venus(self):
-        age = self.seconds / (
-            self.RELATIVE_PLANET_YEARS_MAP["venus"] * self.EARTH_YEAR_IN_SECONDS
-        )
-        return round(age, 2)
+        return self._relative_earth_years_for_planet("venus")
 
     def on_earth(self):
-        age = self.seconds / (
-            self.RELATIVE_PLANET_YEARS_MAP["earth"] * self.EARTH_YEAR_IN_SECONDS
-        )
-        return round(age, 2)
+        return self._relative_earth_years_for_planet("earth")
 
     def on_mars(self):
-        age = self.seconds / (
-            self.RELATIVE_PLANET_YEARS_MAP["mars"] * self.EARTH_YEAR_IN_SECONDS
-        )
-        return round(age, 2)
+        return self._relative_earth_years_for_planet("mars")
 
     def on_jupiter(self):
-        age = self.seconds / (
-            self.RELATIVE_PLANET_YEARS_MAP["jupiter"] * self.EARTH_YEAR_IN_SECONDS
-        )
-        return round(age, 2)
+        return self._relative_earth_years_for_planet("jupiter")
 
     def on_saturn(self):
-        age = self.seconds / (
-            self.RELATIVE_PLANET_YEARS_MAP["saturn"] * self.EARTH_YEAR_IN_SECONDS
-        )
-        return round(age, 2)
+        return self._relative_earth_years_for_planet("saturn")
 
     def on_uranus(self):
-        age = self.seconds / (
-            self.RELATIVE_PLANET_YEARS_MAP["uranus"] * self.EARTH_YEAR_IN_SECONDS
-        )
-        return round(age, 2)
+        return self._relative_earth_years_for_planet("uranus")
 
     def on_neptune(self):
+        return self._relative_earth_years_for_planet("neptune")
+
+    def _relative_earth_years_for_planet(self, planet):
         age = self.seconds / (
-            self.RELATIVE_PLANET_YEARS_MAP["neptune"] * self.EARTH_YEAR_IN_SECONDS
+            self.RELATIVE_PLANET_YEARS_MAP[planet] * self.EARTH_YEAR_IN_SECONDS
         )
         return round(age, 2)
