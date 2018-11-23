@@ -4,10 +4,14 @@ import random
 
 class Robot(object):
     def __init__(self):
-        self.name = self.create_random_name()
+        self.name = self._create_random_name()
 
 
-    def create_random_name(self):
+    def reset(self):
+        self.name = self._create_random_name()
+
+
+    def _create_random_name(self):
         letters = string.ascii_uppercase
 
         name = ''

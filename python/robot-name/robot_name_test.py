@@ -27,18 +27,9 @@ class RobotNameTest(unittest.TestCase):
         )
 
     def test_reset_name(self):
-        # Set a seed
-        seed = "Totally random."
-
-        # Initialize RNG using the seed
-        random.seed(seed)
-
         # Call the generator
         robot = Robot()
         name = robot.name
-
-        # Reinitialize RNG using seed
-        random.seed(seed)
 
         # Call the generator again
         robot.reset()
