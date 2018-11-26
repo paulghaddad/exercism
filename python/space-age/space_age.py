@@ -1,6 +1,9 @@
+import re
+
+
 class SpaceAge(object):
     EARTH_YEAR_IN_SECONDS = 31557600
-    RELATIVE_PLANET_YEARS_MAP = {
+    ORBITAL_PERIODS = {
         "mercury": 0.2408467,
         "venus": 0.61519726,
         "earth": 1.0,
@@ -14,32 +17,16 @@ class SpaceAge(object):
     def __init__(self, seconds):
         self.seconds = seconds
 
-    def on_mercury(self):
-        return self._relative_earth_years_for_planet("mercury")
-
-    def on_venus(self):
-        return self._relative_earth_years_for_planet("venus")
-
-    def on_earth(self):
-        return self._relative_earth_years_for_planet("earth")
-
-    def on_mars(self):
-        return self._relative_earth_years_for_planet("mars")
-
-    def on_jupiter(self):
-        return self._relative_earth_years_for_planet("jupiter")
-
-    def on_saturn(self):
-        return self._relative_earth_years_for_planet("saturn")
-
-    def on_uranus(self):
-        return self._relative_earth_years_for_planet("uranus")
-
-    def on_neptune(self):
-        return self._relative_earth_years_for_planet("neptune")
 
     def _relative_earth_years_for_planet(self, planet):
         age = self.seconds / (
-            self.RELATIVE_PLANET_YEARS_MAP[planet] * self.EARTH_YEAR_IN_SECONDS
+            self.ORBITAL_PERIODS[planet] * self.EARTH_YEAR_IN_SECONDS
         )
         return round(age, 2)
+
+
+    def __getattr__(self, name):
+        planet_name = re.search(r'(?<=on_)\w+', name).group(0)
+        planet_func = lambda name=planet_name: self._relative_earth_years_for_planet(name)
+        setattr(self, name, planet_func)
+        return getattr(self, name)
