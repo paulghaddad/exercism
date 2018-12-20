@@ -8,19 +8,21 @@ class Robot(object):
     NUMBER_OF_DIGITS_IN_NAME = 3
 
     def __init__(self):
-        self.name = self._create_random_name()
+        self.name = self.__class__.create_random_name()
 
 
     def reset(self):
-        self.name = self._create_random_name()
+        self.name = self.__class__.create_random_name()
 
+    @classmethod
+    def create_random_name(cls):
+        # Use join to create a random name
 
-    def _create_random_name(self):
         name = ''
-        for i in range(self.NUMBER_OF_LETTERS_IN_NAME):
-            name += random.choice(self.UPPERCASE_LETTERS)
+        for i in range(Robot.NUMBER_OF_LETTERS_IN_NAME):
+            name += random.choice(Robot.UPPERCASE_LETTERS)
 
-        for i in range(self.NUMBER_OF_DIGITS_IN_NAME):
+        for i in range(Robot.NUMBER_OF_DIGITS_IN_NAME):
             name += str(random.randint(0, 9))
 
         return name
