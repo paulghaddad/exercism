@@ -1,9 +1,11 @@
-import string
 import random
+from string import (
+    ascii_uppercase as uppercase_letters,
+    digits
+)
 
 
 class Robot(object):
-    UPPERCASE_LETTERS = string.ascii_uppercase
     NUMBER_OF_LETTERS_IN_NAME = 2
     NUMBER_OF_DIGITS_IN_NAME = 3
 
@@ -20,9 +22,9 @@ class Robot(object):
 
         name = ''
         for i in range(Robot.NUMBER_OF_LETTERS_IN_NAME):
-            name += random.choice(Robot.UPPERCASE_LETTERS)
+            name += random.choice(uppercase_letters)
 
         for i in range(Robot.NUMBER_OF_DIGITS_IN_NAME):
-            name += str(random.randint(0, 9))
+            name += random.choice(digits)
 
         return name
