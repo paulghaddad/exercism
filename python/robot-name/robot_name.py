@@ -1,13 +1,18 @@
 import random
 from string import (
-    ascii_uppercase as uppercase_letters,
+    ascii_uppercase as upper_letters,
     digits
 )
 
 
 class Robot(object):
-    NUMBER_OF_LETTERS_IN_NAME = 2
-    NUMBER_OF_DIGITS_IN_NAME = 3
+
+
+    @classmethod
+    def create_random_name(cls):
+        random.seed()
+        name_chars = random.sample(upper_letters, 2) + random.sample(digits, 3)
+        return ''.join(name_chars)
 
     def __init__(self):
         self.reset()
@@ -15,15 +20,3 @@ class Robot(object):
 
     def reset(self):
         self.name = self.__class__.create_random_name()
-
-
-    @classmethod
-    def create_random_name(cls):
-        name_chars = []
-        for i in range(Robot.NUMBER_OF_LETTERS_IN_NAME):
-            name_chars += random.choice(uppercase_letters)
-
-        for i in range(Robot.NUMBER_OF_DIGITS_IN_NAME):
-            name_chars += random.choice(digits)
-
-        return ''.join(name_chars)
