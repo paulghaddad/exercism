@@ -1,10 +1,17 @@
+FORCED_QUESTION_RESP = "Calm down, I know what I'm doing!"
+QUESTION_RESP = "Sure."
+YELLING_RESP = "Whoa, chill out!"
+SILENCE_RESP = "Fine. Be that way!"
+DEFAULT_RESP = "Whatever."
+
+
 def hey(phrase):
     return (
-        forceful_question(phrase) and "Calm down, I know what I'm doing!" or
-        question(phrase) and "Sure." or
-        yelling(phrase) and "Whoa, chill out!" or
-        silence(phrase) and "Fine. Be that way!" or
-        "Whatever."
+        forceful_question(phrase) and FORCED_QUESTION_RESP or
+        question(phrase) and QUESTION_RESP or
+        yelling(phrase) and YELLING_RESP or
+        silence(phrase) and SILENCE_RESP or
+        DEFAULT_RESP
     )
 
 
