@@ -1,37 +1,31 @@
-RESPONSES = {
-    "shouting_a_question": "Calm down, I know what I'm doing!",
-    "shouting": "Whoa, chill out!",
-    "question": "Sure.",
-    "silence": "Fine. Be that way!",
-    "default": "Whatever."
-}
+FORCED_QUESTION_RESP = "Calm down, I know what I'm doing!"
+QUESTION_RESP = "Sure."
+YELLING_RESP = "Whoa, chill out!"
+SILENCE_RESP = "Fine. Be that way!"
+DEFAULT_RESP = "Whatever."
+
 
 def hey(phrase):
-    normalized_phrase = phrase.strip(" \t\n\r")
-
-    shouting = is_shouting(normalized_phrase)
-    asking_question = is_question(normalized_phrase)
-    shouting_question = shouting and asking_question
-    silence = not normalized_phrase
-
-    if shouting_question:
-        return RESPONSES["shouting_a_question"]
-
-    if shouting:
-        return RESPONSES["shouting"]
-
-    if asking_question:
-        return RESPONSES["question"]
-
-    if silence:
-        return RESPONSES["silence"]
-
-    return RESPONSES["default"]
+    return (
+        forceful_question(phrase) and FORCED_QUESTION_RESP or
+        question(phrase) and QUESTION_RESP or
+        yelling(phrase) and YELLING_RESP or
+        silence(phrase) and SILENCE_RESP or
+        DEFAULT_RESP
+    )
 
 
-def is_shouting(phrase):
+def question(phrase):
+    return phrase.rstrip().endswith("?")
+
+
+def yelling(phrase):
     return phrase.isupper()
 
 
-def is_question(phrase):
-    return phrase.endswith("?")
+def forceful_question(phrase):
+    return question(phrase) and yelling(phrase)
+
+
+def silence(phrase):
+    return not phrase.strip()
