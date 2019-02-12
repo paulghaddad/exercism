@@ -7,3 +7,7 @@ def is_pangram(sentence):
 
     # Approach 2: Is every letter in a-z in the sentence
     return set(sentence.lower()).issuperset(lowercase_letters)
+
+    # Approach 3: Use set difference: Is the set of lowercase letters minus all
+    # the letters in the sentence 0?
+    return not set(lowercase_letters) - set(sentence.lower())
