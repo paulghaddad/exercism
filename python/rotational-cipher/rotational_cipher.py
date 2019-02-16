@@ -1,19 +1,9 @@
-def rotate_char(char, key):
-    if char.isupper():
-        baseline = ord('A')
-        new_value = (ord(char) + key - baseline) % 26 + baseline
-    elif char.islower():
-        baseline = ord('a')
-        new_value = (ord(char) + key - baseline) % 26 + baseline
-    else:
-        new_value = ord(char)
-
-    return chr(new_value)
+from string import ascii_lowercase as lower, ascii_uppercase as upper
 
 def rotate(text, key):
-    rotated_text = ''
+    key = key % 26
+    rotated_lower = lower[key:] + lower[:key]
+    rotated_upper = upper[key:] + upper[:key]
 
-    for char in text:
-      rotated_text += rotate_char(char, key)
-
-    return rotated_text
+    rotation_mapping = str.maketrans(lower+upper, rotated_lower + rotated_upper)
+    return text.translate(rotation_mapping)
