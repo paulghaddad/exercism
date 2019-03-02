@@ -1,3 +1,5 @@
+# Create a mapping (try using zip) and then translate that to a string
+
 def rotate_char(char, key):
     if char.isupper():
         baseline = ord('A')
