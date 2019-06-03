@@ -16,6 +16,11 @@ YACHT = 12
 SINGLE_CATEGORIES = (ONES, TWOS, THREES, FOURS, FIVES, SIXES)
 
 
+category_scorer = {
+    'YACHT': lambda dice: _is_yacht(dice) and 50
+}
+
+
 def score(dice, category):
     if category in SINGLE_CATEGORIES:
         return _score_singles(dice, category)
@@ -43,8 +48,8 @@ def score(dice, category):
     if category == CHOICE:
         return sum(dice)
 
-    if category == YACHT and _is_yacht(dice):
-        return 50
+    if category == YACHT:
+        return category_scorer['YACHT'](dice)
 
     return 0
 
@@ -56,7 +61,6 @@ def _score_singles(dice, category):
 
 def _is_yacht(dice):
     return len(set(dice)) == 1
-
 
 def _is_full_house(counts):
     match_counts = counts.values()
