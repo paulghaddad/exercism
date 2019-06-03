@@ -8,9 +8,9 @@ FIVES = 5
 SIXES = 6
 FULL_HOUSE = 7
 FOUR_OF_A_KIND = 8
-LITTLE_STRAIGHT = None
-BIG_STRAIGHT = None
-CHOICE = None
+LITTLE_STRAIGHT = 9
+BIG_STRAIGHT = 10
+CHOICE = 11
 YACHT = 12
 
 SINGLE_CATEGORIES = (ONES, TWOS, THREES, FOURS, FIVES, SIXES)
@@ -31,6 +31,17 @@ def score(dice, category):
         for die, count in match_counts.items():
             if count == 4 or count == 5:
                 return 4 * die
+
+    if category == LITTLE_STRAIGHT:
+        if sorted(dice) == [1, 2, 3, 4, 5]:
+            return 30
+
+    if category == BIG_STRAIGHT:
+        if sorted(dice) == [2, 3, 4, 5, 6]:
+            return 30
+
+    if category == CHOICE:
+        return sum(dice)
 
     if category == YACHT and _is_yacht(dice):
         return 50
