@@ -17,10 +17,7 @@ class Rational(object):
     def __init__(self, numer, denom):
         gcd = self.calculate_gcd(numer, denom)
 
-        if numer > 0 and denom < 0:
-            numer *= -1
-            denom *= -1
-        elif numer < 0 and denom < 0:
+        if denom < 0:
             numer *= -1
             denom *= -1
 
@@ -32,26 +29,16 @@ class Rational(object):
         return self.numer == other.numer and self.denom == other.denom
 
 
-    def __repr__(self):
-        return '{}/{}'.format(self.numer, self.denom)
-
-
     def __add__(self, other):
         numer = self.numer * other.denom + self.denom * other.numer
-        denom = self.denom * other.denom
-
-        if numer == 0:
-            denom = 1
+        denom = self.denom * other.denom or 1
 
         return Rational(numer, denom)
 
 
     def __sub__(self, other):
         numer = self.numer * other.denom - self.denom * other.numer
-        denom = self.denom * other.denom
-
-        if numer == 0:
-            denom = 1
+        denom = self.denom * other.denom or 1
 
         return Rational(numer, denom)
 
@@ -71,12 +58,8 @@ class Rational(object):
 
 
     def __abs__(self):
-        if self.denom < 0 and self.numer < 0:
-            return Rational(self.numer * -1, self.denom * -1)
-        elif self.numer < 0:
+        if self.numer < 0:
             return Rational(self.numer * -1, self.denom)
-        elif self.denom < 0:
-            return Rational(self.numer, self.denom* -1)
         else:
             return Rational(self.numer, self.denom)
 
@@ -90,3 +73,7 @@ class Rational(object):
 
     def __rpow__(self, base):
         return base ** (self.numer / self.denom)
+
+
+    def __repr__(self):
+        return '{}/{}'.format(self.numer, self.denom)
