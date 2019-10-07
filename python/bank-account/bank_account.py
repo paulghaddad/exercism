@@ -3,12 +3,11 @@ from threading import Lock
 
 
 class BankAccount(object):
-    lock = Lock()
 
     def check_if_closed(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            if args[0].closed:
+            if args[0].closed or args[0].closed is None:
                 raise ValueError("The account is closed.")
             return func(*args, **kwargs)
         return wrapper
@@ -17,18 +16,15 @@ class BankAccount(object):
     def check_if_open(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            if not args[0].closed:
+            if args[0].closed is False:
                 raise ValueError("The account is not closed.")
             return func(*args, **kwargs)
         return wrapper
 
 
     def __init__(self):
-        self.closed = True
-
-    @check_if_closed
-    def get_balance(self):
-        return self.balance
+        self.closed = None
+        self.lock = Lock()
 
 
     @check_if_open
@@ -38,8 +34,13 @@ class BankAccount(object):
 
 
     @check_if_closed
+    def get_balance(self):
+        return self.balance
+
+
+    @check_if_closed
     def deposit(self, amount):
-        with BankAccount.lock:
+        with self.lock:
             if amount < 0:
                 raise ValueError("This is an invalid deposit amount.")
 
@@ -48,7 +49,7 @@ class BankAccount(object):
 
     @check_if_closed
     def withdraw(self, amount):
-        with BankAccount.lock:
+        with self.lock:
             if amount > self.balance or amount < 0:
                 raise ValueError("This amount cannot be withdrawn.")
 
