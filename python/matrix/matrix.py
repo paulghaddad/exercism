@@ -1,21 +1,17 @@
 class Matrix(object):
     def __init__(self, matrix_string):
-        self.matrix = self._parse_matrix_string(matrix_string)
+        self.rows = self._parse_matrix_string(matrix_string)
+        self.cols = [list(col) for col in zip(*self.rows)]
 
 
     def row(self, index):
-        return self.matrix[index - 1]
+        return self.rows[index - 1]
 
 
     def column(self, index):
-        return [row[index - 1] for row in self.matrix]
+        return self.cols[index - 1]
 
 
     @staticmethod
-    def _parse_matrix_string(matrix_string):
-        matrix = []
-
-        for row in matrix_string.split("\n"):
-            matrix.append([int(el) for el in row.split(" ")])
-
-        return matrix
+    def _parse_matrix_string(matrix):
+        return [[int(el) for el in row.split(" ")] for row in matrix.splitlines()]
